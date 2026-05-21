@@ -5,27 +5,27 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #080810;
-  --bg-card:   rgba(18, 18, 28, 0.75);
-  --border:    rgba(255, 255, 255, 0.07);
-  --border-h:  rgba(255, 255, 255, 0.18);
+  --bg:        #000000;
+  --bg-card:   rgba(15, 15, 15, 0.75);
+  --border:    rgba(255, 255, 255, 0.1);
+  --border-h:  rgba(255, 255, 255, 0.25);
   --white:     #ffffff;
-  --gray-1:    #e8e8f0;
-  --gray-2:    #8888aa;
-  --gray-3:    #444466;
-  --accent:    #7c6af7;
-  --accent2:   #a78bfa;
+  --gray-1:    #e0e0e0;
+  --gray-2:    #999999;
+  --gray-3:    #666666;
+  --accent:    #ffffff;
+  --accent2:   #cccccc;
 
   /* Platform colors */
-  --platform-telegram: #2aabee;
-  --platform-discord:  #5865f2;
-  --platform-steam:    #66c0f4;
-  --platform-riot:     #d0293b;
-  --platform-github:   #e6edf3;
-  --platform-email:    #ea4335;
-  --platform-youtube:  #ff4444;
-  --platform-tiktok:   #69c9d0;
-  --platform-instagram:#c13584;
+  --platform-telegram: #ffffff;
+  --platform-discord: #ffffff;
+  --platform-steam: #ffffff;
+  --platform-riot: #ffffff;
+  --platform-github: #ffffff;
+  --platform-email: #ffffff;
+  --platform-youtube: #ffffff;
+  --platform-tiktok: #ffffff;
+  --platform-instagram: #ffffff;
 
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
@@ -34,6 +34,10 @@
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow:    0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -61,10 +65,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 60% at 15% 0%, rgba(100, 80, 220, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 100%, rgba(60, 180, 220, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(120, 60, 200, 0.05) 0%, transparent 70%),
-    linear-gradient(180deg, #080810 0%, #0c0c18 50%, #080810 100%);
+    radial-gradient(ellipse 80% 60% at 15% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 100%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%),
+    linear-gradient(180deg, #000000 0%, #0c0c0c 50%, #000000 100%);
 }
 
 .bg__stars {
@@ -82,13 +86,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .bg__glow--1 {
   width: 700px; height: 700px;
   top: -200px; left: -200px;
-  background: radial-gradient(circle, rgba(100, 80, 220, 0.14) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 65%);
 }
 
 .bg__glow--2 {
   width: 600px; height: 600px;
   bottom: -200px; right: -200px;
-  background: radial-gradient(circle, rgba(40, 160, 220, 0.1) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 65%);
 }
 
 /* ── Layout ── */
@@ -121,6 +125,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-align: center;
   margin-bottom: 44px;
   animation: fadeSlideDown 0.7s ease both;
+  transition: transform 0.3s ease;
+}
+
+.profile:hover {
+  transform: translateY(-4px);
 }
 
 .profile__name {
@@ -129,7 +138,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 700;
   letter-spacing: 0.18em;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 40%, #93c5fd 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #999999 40%, #444444 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -202,10 +211,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--white);
   text-decoration: none;
   transition:
-    transform var(--transition),
-    box-shadow var(--transition),
-    background-color var(--transition),
-    border-color var(--transition);
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
   position: relative;
   overflow: hidden;
   gap: 14px;
@@ -242,7 +251,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: rgba(255, 255, 255, 0.07);
   border-color: var(--border-h);
   transform: translateY(-3px) scale(1.005);
-  box-shadow: var(--shadow-lg), 0 0 24px rgba(124, 106, 247, 0.12);
+  box-shadow: var(--shadow-lg), 0 0 24px rgba(255, 255, 255, 0.12);
 }
 
 .link:hover::before {
@@ -342,16 +351,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   height: 26px;
   overflow: hidden;
 
-  background: rgba(208, 41, 59, 0.15);
-  border: 1px solid rgba(208, 41, 59, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 100px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
   cursor: pointer;
   font-family: var(--font-main);
-  transition: opacity var(--transition), transform var(--transition),
-              background-color var(--transition), border-color var(--transition);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Show pill when card is hovered */
@@ -362,8 +371,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .link__copy-btn:hover {
-  background: rgba(208, 41, 59, 0.28);
-  border-color: rgba(208, 41, 59, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Label & ID — crossfade on button hover */
@@ -408,12 +417,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* Telegram pill color override */
 .link--telegram .link__copy-btn {
-  background: rgba(42, 171, 238, 0.15);
-  border-color: rgba(42, 171, 238, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 .link--telegram .link__copy-btn:hover {
-  background: rgba(42, 171, 238, 0.28);
-  border-color: rgba(42, 171, 238, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .link--telegram .link__copy-btn .link__copy-btn__label {
   color: var(--platform-telegram);
@@ -421,12 +430,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* Discord pill color override */
 .link--discord .link__copy-btn {
-  background: rgba(88, 101, 242, 0.15);
-  border-color: rgba(88, 101, 242, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 .link--discord .link__copy-btn:hover {
-  background: rgba(88, 101, 242, 0.28);
-  border-color: rgba(88, 101, 242, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 .link--discord .link__copy-btn .link__copy-btn__label {
   color: var(--platform-discord);
@@ -461,8 +470,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-radius: var(--radius);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background-color var(--transition);
-  animation: fadeSlideUp 0.7s ease both;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  animation: fadeSlideUp 0.7s ease both, float 6s ease-in-out infinite;
   box-shadow: var(--shadow);
   gap: 10px;
   will-change: transform;
@@ -490,7 +499,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255,255,255,0.18);
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(124, 106, 247, 0.15);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(255, 255, 255, 0.15);
   z-index: 10;
 }
 
@@ -498,12 +507,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transform: translateY(-2px) scale(0.98);
 }
 
-.channel-block:nth-of-type(1) { animation-delay: 0.08s; }
-.channel-block:nth-of-type(2) { animation-delay: 0.16s; }
-.channel-block:nth-of-type(3) { animation-delay: 0.24s; }
-.channel-block:nth-of-type(4) { animation-delay: 0.32s; }
-.channel-block:nth-of-type(5) { animation-delay: 0.40s; }
-.channel-block:nth-of-type(6) { animation-delay: 0.48s; }
+.channel-block:nth-of-type(1) { animation-delay: 0.08s, 0s; }
+.channel-block:nth-of-type(2) { animation-delay: 0.16s, 0.2s; }
+.channel-block:nth-of-type(3) { animation-delay: 0.24s, 0.4s; }
+.channel-block:nth-of-type(4) { animation-delay: 0.32s, 0.1s; }
+.channel-block:nth-of-type(5) { animation-delay: 0.40s, 0.3s; }
+.channel-block:nth-of-type(6) { animation-delay: 0.48s, 0.5s; }
 
 .channel-block__avatar {
   width: 56px;
@@ -705,41 +714,51 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
   50%       { opacity: calc(var(--op, 0.3) * 0.15); transform: scale(0.75); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0)); }
+  50% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2)); }
+}
+
 /* ── Platform Link Colors (main links) ── */
 
-.link--telegram { background: rgba(16, 16, 30, 0.7); border-color: rgba(42, 171, 238, 0.08); }
+.link--telegram { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
 .link--telegram::before { color: var(--platform-telegram); }
-.link--telegram:hover { background: rgba(42, 171, 238, 0.1); border-color: rgba(42, 171, 238, 0.28); box-shadow: 0 8px 32px rgba(42, 171, 238, 0.18), var(--shadow-lg); }
+.link--telegram:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--telegram .link__icon { color: var(--gray-2); }
 .link--telegram:hover .link__icon { color: var(--platform-telegram); }
 
-.link--discord { background: rgba(16, 16, 30, 0.7); border-color: rgba(88, 101, 242, 0.08); }
+.link--discord { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
 .link--discord::before { color: var(--platform-discord); }
-.link--discord:hover { background: rgba(88, 101, 242, 0.1); border-color: rgba(88, 101, 242, 0.28); box-shadow: 0 8px 32px rgba(88, 101, 242, 0.18), var(--shadow-lg); }
+.link--discord:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--discord .link__icon { color: var(--gray-2); }
 .link--discord:hover .link__icon { color: var(--platform-discord); }
 
-.link--steam { background: rgba(16, 16, 30, 0.7); border-color: rgba(102, 192, 244, 0.08); }
+.link--steam { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
 .link--steam::before { color: var(--platform-steam); }
-.link--steam:hover { background: rgba(102, 192, 244, 0.1); border-color: rgba(102, 192, 244, 0.28); box-shadow: 0 8px 32px rgba(102, 192, 244, 0.18), var(--shadow-lg); }
+.link--steam:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--steam .link__icon { color: var(--gray-2); }
 .link--steam:hover .link__icon { color: var(--platform-steam); }
 
-.link--riot { background: rgba(16, 16, 30, 0.7); border-color: rgba(208, 41, 59, 0.08); }
+.link--riot { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
 .link--riot::before { color: var(--platform-riot); }
-.link--riot:hover { background: rgba(208, 41, 59, 0.1); border-color: rgba(208, 41, 59, 0.28); box-shadow: 0 8px 32px rgba(208, 41, 59, 0.18), var(--shadow-lg); }
+.link--riot:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--riot .link__icon { color: var(--gray-2); }
 .link--riot:hover .link__icon { color: var(--platform-riot); }
 
-.link--github { background: rgba(16, 16, 30, 0.7); border-color: rgba(230, 237, 243, 0.07); }
+.link--github { background: rgba(20, 20, 20, 0.7); border-color: rgba(230, 237, 243, 0.07); }
 .link--github::before { color: #e6edf3; }
-.link--github:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.22); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
+.link--github:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--github .link__icon { color: var(--gray-2); }
 .link--github:hover .link__icon { color: var(--platform-github); }
 
-.link--email { background: rgba(16, 16, 30, 0.7); border-color: rgba(234, 67, 53, 0.08); }
+.link--email { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
 .link--email::before { color: var(--platform-email); }
-.link--email:hover { background: rgba(234, 67, 53, 0.1); border-color: rgba(234, 67, 53, 0.28); box-shadow: 0 8px 32px rgba(234, 67, 53, 0.18), var(--shadow-lg); }
+.link--email:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
 .link--email .link__icon { color: var(--gray-2); }
 .link--email:hover .link__icon { color: var(--platform-email); }
 
@@ -760,7 +779,7 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
     padding-top: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 14px;
   }
 
   .side-channels--left  { order: 2; }
@@ -769,14 +788,57 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
   .section-title--mobile {
     display: block !important;
     grid-column: span 2;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-wrapper {
+    padding: 32px 16px 54px;
+    gap: 28px;
+  }
+
+  .profile__name {
+    font-size: 36px;
+    letter-spacing: 0.15em;
+  }
+
+  .profile__tagline {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  .link {
+    padding: 16px 20px;
+  }
+
+  .link__title {
+    font-size: 13px;
+  }
+
+  .channel-block {
+    padding: 16px 12px;
+  }
+
+  .channel-block__avatar {
+    width: 52px;
+    height: 52px;
+  }
+
+  .channel-block__title {
+    font-size: 14px;
+  }
+
+  .platform-link {
+    width: 28px;
+    height: 28px;
   }
 }
 
 @media (max-width: 600px) {
   .layout-wrapper {
-    padding: 28px 14px 50px;
-    gap: 24px;
+    padding: 24px 12px 48px;
+    gap: 20px;
   }
 
   .side-channels {
@@ -786,11 +848,30 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
 
   .section-title--mobile { grid-column: span 1; }
 
-  .profile__name { font-size: 30px; }
-  .profile__tagline { font-size: 12px; margin-top: 12px; }
+  .profile__name {
+    font-size: 32px;
+    letter-spacing: 0.14em;
+  }
 
-  .link { padding: 16px 18px; }
-  .link__title { font-size: 13px; padding-right: 20px; }
+  .profile__tagline {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  .link {
+    padding: 14px 16px;
+    margin-bottom: 4px;
+  }
+
+  .link__title {
+    font-size: 13px;
+    padding-right: 20px;
+  }
+
+  .link__icon {
+    width: 20px;
+    height: 20px;
+  }
 
   .link__copy-badge {
     display: block;
@@ -799,16 +880,60 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
     right: 10px;
   }
 
-  .channel-block { padding: 14px 10px; }
-  .channel-block__avatar { width: 48px; height: 48px; }
-  .channel-block__title { font-size: 13px; }
-  .channel-block__subtitle { font-size: 9px; letter-spacing: 0.03em; }
+  .channel-block {
+    padding: 14px 10px;
+  }
 
-  .platform-link { width: 26px; height: 26px; }
-  .platform-link svg { width: 14px; height: 14px; }
+  .channel-block__avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .channel-block__title {
+    font-size: 13px;
+  }
+
+  .channel-block__subtitle {
+    font-size: 9px;
+    letter-spacing: 0.03em;
+  }
+
+  .platform-link {
+    width: 26px;
+    height: 26px;
+  }
+
+  .platform-link svg {
+    width: 14px;
+    height: 14px;
+  }
 
   .side-channels--left .channel-block__platforms,
   .side-channels--right .channel-block__platforms {
     justify-content: center;
+  }
+
+  .footer {
+    font-size: 10px;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 375px) {
+  .profile__name {
+    font-size: 28px;
+    letter-spacing: 0.12em;
+  }
+
+  .link {
+    padding: 12px 14px;
+  }
+
+  .link__title {
+    font-size: 12px;
+  }
+
+  .channel-block {
+    padding: 12px 8px;
   }
 }

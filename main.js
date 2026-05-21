@@ -1,6 +1,6 @@
 /* ===================================================
    SOWER — Minimalist Theme main.js
-   Subtle star field & Copy functionality
+   Subtle star field, parallax & Copy functionality
    =================================================== */
 
 // ── Minimalist Star field ───────────────────────────
@@ -49,6 +49,28 @@
     if (accentColor) {
       block.style.setProperty('--channel-accent', accentColor);
     }
+  });
+})();
+
+// ── Parallax Effect on Mouse Move ─────────────────────
+(function initParallax() {
+  const channels = document.querySelectorAll('.channel-block');
+  if (channels.length === 0) return;
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    
+    channels.forEach(block => {
+      block.style.transform = `translateZ(0) rotateX(${y * 0.05}deg) rotateY(${x * 0.05}deg)`;
+    });
+  });
+
+  // Reset on mouse leave
+  document.addEventListener('mouseleave', () => {
+    channels.forEach(block => {
+      block.style.transform = 'translateZ(0) rotateX(0) rotateY(0)';
+    });
   });
 })();
 
@@ -110,3 +132,49 @@
     });
   });
 })();
+
+// ── Ripple Effect on Click ──────────────────────────
+(function initRippleEffect() {
+  const links = document.querySelectorAll('.link, .channel-block');
+  
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      const ripple = document.createElement('span');
+      ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(${x}px, ${y}px) scale(0);
+        pointer-events: none;
+        animation: ripple 0.6s ease-out;
+      `;
+      
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+})();
+
+// ── Add Ripple Animation to CSS ─────────────────────
+const style = document.createElement('style');
+style.innerHTML = `
+  @keyframes ripple {
+    0% {
+      transform: translate(var(--x, 0), var(--y, 0)) scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--x, 0), var(--y, 0)) scale(1);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+
