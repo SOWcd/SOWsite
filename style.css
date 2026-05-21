@@ -17,15 +17,15 @@
   --accent2:   #cccccc;
 
   /* Platform colors */
-  --platform-telegram: #ffffff;
-  --platform-discord: #ffffff;
-  --platform-steam: #ffffff;
-  --platform-riot: #ffffff;
-  --platform-github: #ffffff;
-  --platform-email: #ffffff;
-  --platform-youtube: #ffffff;
-  --platform-tiktok: #ffffff;
-  --platform-instagram: #ffffff;
+  --platform-telegram: #2aabee;
+  --platform-discord:  #5865f2;
+  --platform-steam:    #66c0f4;
+  --platform-riot:     #d0293b;
+  --platform-github:   #e6edf3;
+  --platform-email:    #ea4335;
+  --platform-youtube:  #ff4444;
+  --platform-tiktok:   #69c9d0;
+  --platform-instagram:#c13584;
 
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
@@ -216,46 +216,48 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     background-color 0.3s ease,
     border-color 0.3s ease;
   position: relative;
-  overflow: hidden;
   gap: 14px;
   box-shadow: var(--shadow);
   will-change: transform;
-  animation: fadeSlideUp 0.7s ease both;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   cursor: pointer;
+  animation: fadeSlideUp 0.7s ease forwards !important;
 }
 
-/* Subtle left accent line */
+/* Animation delays for each link - count all children */
+.links > :nth-child(1) { animation-delay: 0.08s !important; }
+.links > :nth-child(2) { animation-delay: 0.13s !important; }
+.links > :nth-child(3) { animation-delay: 0.18s !important; }
+.links > :nth-child(4) { animation-delay: 0.23s !important; }
+.links > :nth-child(5) { animation-delay: 0.28s !important; }
+.links > :nth-child(6) { animation-delay: 0.33s !important; }
+
+/* Beautiful glowing left accent (Переливание) */
 .link::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 20%;
-  bottom: 20%;
-  width: 2px;
-  border-radius: 2px;
-  background: currentColor;
+  left: -1px;
+  top: 15%;
+  bottom: 15%;
+  width: 3px;
+  border-radius: 4px;
+  background: var(--platform-color, currentColor);
+  box-shadow: 0 0 16px 2px var(--platform-color, currentColor);
   opacity: 0;
-  transition: opacity var(--transition);
+  transform: scaleY(0.4);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.link:nth-child(1) { animation-delay: 0.08s; }
-.link:nth-child(2) { animation-delay: 0.13s; }
-.link:nth-child(3) { animation-delay: 0.18s; }
-.link:nth-child(4) { animation-delay: 0.23s; }
-.link:nth-child(5) { animation-delay: 0.28s; }
-.link:nth-child(6) { animation-delay: 0.33s; }
-
 .link:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: var(--border-h);
-  transform: translateY(-3px) scale(1.005);
-  box-shadow: var(--shadow-lg), 0 0 24px rgba(255, 255, 255, 0.12);
+  transform: translateY(-6px) scale(1.02);
 }
 
 .link:hover::before {
-  opacity: 0.6;
+  opacity: 1;
+  transform: scaleY(1);
 }
 
 .link:active {
@@ -274,7 +276,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .link:hover .link__icon {
   color: var(--white);
-  transform: scale(1.15);
+  transform: scale(1.2) rotate(-8deg);
 }
 
 .link__icon img {
@@ -327,8 +329,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .link__main-area:hover .link__icon {
-  color: var(--platform-riot);
-  transform: scale(1.15);
+  color: var(--platform-color);
+  transform: scale(1.2) rotate(-8deg);
 }
 
 .link--split .link__title {
@@ -471,13 +473,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-  animation: fadeSlideUp 0.7s ease both, float 6s ease-in-out infinite;
+  animation: fadeSlideUp 0.7s ease both;
   box-shadow: var(--shadow);
   gap: 10px;
   will-change: transform;
   --channel-accent: var(--accent);
   position: relative;
   overflow: hidden;
+  transform:
+    translateZ(0)
+    rotateX(calc(var(--prlx-y, 0) * 1deg))
+    rotateY(calc(var(--prlx-x, 0) * 1deg));
 }
 
 /* Subtle top glow bar per channel */
@@ -498,13 +504,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .channel-block:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255,255,255,0.18);
-  transform: translateY(-6px) scale(1.02);
+  transform:
+    translateY(-6px) scale(1.02)
+    rotateX(calc(var(--prlx-y, 0) * 1deg))
+    rotateY(calc(var(--prlx-x, 0) * 1deg));
   box-shadow: var(--shadow-lg), 0 0 30px rgba(255, 255, 255, 0.15);
   z-index: 10;
 }
 
 .channel-block:active {
-  transform: translateY(-2px) scale(0.98);
+  transform:
+    translateY(-2px) scale(0.98)
+    rotateX(calc(var(--prlx-y, 0) * 1deg))
+    rotateY(calc(var(--prlx-x, 0) * 1deg));
 }
 
 .channel-block:nth-of-type(1) { animation-delay: 0.08s, 0s; }
@@ -714,53 +726,57 @@ aside.side-channels--right .channel-block:hover .channel-block__platforms {
   50%       { opacity: calc(var(--op, 0.3) * 0.15); transform: scale(0.75); }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
 @keyframes glow-pulse {
   0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0)); }
   50% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.2)); }
 }
 
-/* ── Platform Link Colors (main links) ── */
+@keyframes shimmerBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-.link--telegram { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
-.link--telegram::before { color: var(--platform-telegram); }
-.link--telegram:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--telegram .link__icon { color: var(--gray-2); }
-.link--telegram:hover .link__icon { color: var(--platform-telegram); }
+@keyframes hoverFloat {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -3px; }
+}
 
-.link--discord { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
-.link--discord::before { color: var(--platform-discord); }
-.link--discord:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--discord .link__icon { color: var(--gray-2); }
-.link--discord:hover .link__icon { color: var(--platform-discord); }
+/* ── Platform Link Colors & Beautiful Glow Hover (Переливание) ── */
 
-.link--steam { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
-.link--steam::before { color: var(--platform-steam); }
-.link--steam:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--steam .link__icon { color: var(--gray-2); }
-.link--steam:hover .link__icon { color: var(--platform-steam); }
+.link {
+  --platform-color: rgba(255, 255, 255, 0.5); /* fallback */
+  background: rgba(20, 20, 20, 0.7);
+}
 
-.link--riot { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
-.link--riot::before { color: var(--platform-riot); }
-.link--riot:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--riot .link__icon { color: var(--gray-2); }
-.link--riot:hover .link__icon { color: var(--platform-riot); }
+.link--telegram { --platform-color: var(--platform-telegram); }
+.link--discord  { --platform-color: var(--platform-discord); }
+.link--steam    { --platform-color: var(--platform-steam); }
+.link--riot     { --platform-color: var(--platform-riot); }
+.link--github   { --platform-color: var(--platform-github); }
+.link--email    { --platform-color: var(--platform-email); }
 
-.link--github { background: rgba(20, 20, 20, 0.7); border-color: rgba(230, 237, 243, 0.07); }
-.link--github::before { color: #e6edf3; }
-.link--github:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--github .link__icon { color: var(--gray-2); }
-.link--github:hover .link__icon { color: var(--platform-github); }
+.link:hover {
+  border-color: color-mix(in srgb, var(--platform-color) 40%, transparent);
+  box-shadow:
+    0 8px 32px color-mix(in srgb, var(--platform-color) 20%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--platform-color) 15%, transparent),
+    var(--shadow-lg);
+  background: linear-gradient(
+    90deg,
+    rgba(25, 25, 25, 0.8) 0%,
+    color-mix(in srgb, var(--platform-color) 12%, rgba(25, 25, 25, 0.8)) 50%,
+    rgba(25, 25, 25, 0.8) 100%
+  );
+  background-size: 200% 100%;
+  animation:
+    shimmerBg 3s ease infinite,
+    hoverFloat 2.5s ease-in-out infinite;
+}
 
-.link--email { background: rgba(20, 20, 20, 0.7); border-color: rgba(255, 255, 255, 0.08); }
-.link--email::before { color: var(--platform-email); }
-.link--email:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), var(--shadow-lg); }
-.link--email .link__icon { color: var(--gray-2); }
-.link--email:hover .link__icon { color: var(--platform-email); }
+.link:hover .link__icon { 
+  color: var(--platform-color); 
+}
 
 /* ── Responsive ── */
 @media (max-width: 1200px) {

@@ -52,24 +52,26 @@
   });
 })();
 
-// ── Parallax Effect on Mouse Move ─────────────────────
+// ── Parallax Effect on Mouse Move (CSS variables, no inline transform) ──
 (function initParallax() {
   const channels = document.querySelectorAll('.channel-block');
   if (channels.length === 0) return;
 
   document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    const x = ((e.clientX / window.innerWidth - 0.5) * 20 * 0.05).toFixed(2);
+    const y = ((e.clientY / window.innerHeight - 0.5) * 20 * 0.05).toFixed(2);
     
     channels.forEach(block => {
-      block.style.transform = `translateZ(0) rotateX(${y * 0.05}deg) rotateY(${x * 0.05}deg)`;
+      block.style.setProperty('--prlx-x', x);
+      block.style.setProperty('--prlx-y', y);
     });
   });
 
   // Reset on mouse leave
   document.addEventListener('mouseleave', () => {
     channels.forEach(block => {
-      block.style.transform = 'translateZ(0) rotateX(0) rotateY(0)';
+      block.style.setProperty('--prlx-x', '0');
+      block.style.setProperty('--prlx-y', '0');
     });
   });
 })();
