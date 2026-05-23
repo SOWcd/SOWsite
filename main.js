@@ -70,17 +70,22 @@ function initCursor() {
     animate();
 
     // Hover effects
-    const interactive = document.querySelectorAll('a, button, .modern-link, .bento-item');
-    interactive.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.targetScale = 2;
-            cursorEl.style.backgroundColor = 'rgba(255,255,255,0.1)';
+    function updateInteractive() {
+        const interactive = document.querySelectorAll('a, button, .modern-link, .bento-item, [data-copy]');
+        interactive.forEach(el => {
+            if (el._cursorBound) return;
+            el.addEventListener('mouseenter', () => {
+                cursor.targetScale = 2;
+                cursorEl.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.targetScale = 1;
+                cursorEl.style.backgroundColor = 'transparent';
+            });
+            el._cursorBound = true;
         });
-        el.addEventListener('mouseleave', () => {
-            cursor.targetScale = 1;
-            cursorEl.style.backgroundColor = 'transparent';
-        });
-    });
+    }
+    updateInteractive();
 }
 
 // ── Text Scramble ───────────────────────
@@ -124,11 +129,14 @@ function initTextScramble() {
 // ── Copy System ─────────────────────────
 function initCopySystem() {
     const toast = document.getElementById('copyToast');
-    const links = document.querySelectorAll('[data-copy]');
+    const copyElements = document.querySelectorAll('[data-copy]');
 
-    links.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const text = link.getAttribute('data-copy');
+    copyElements.forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Stop navigation if it's inside a link
+
+            const text = el.getAttribute('data-copy');
             if (text) {
                 navigator.clipboard.writeText(text).then(() => {
                     showToast();

@@ -278,10 +278,10 @@ html, body {
 }
 
 .link--tiktok:hover {
-  background: rgba(254, 44, 85, 0.15);
-  border-color: #FE2C55;
-  color: #FE2C55;
-  box-shadow: 0 0 15px rgba(254, 44, 85, 0.2);
+  background: rgba(255, 0, 80, 0.15);
+  border-color: #ff0050;
+  color: #ff0050;
+  box-shadow: 0 0 15px rgba(255, 0, 80, 0.2);
 }
 
 .link--instagram:hover {
@@ -291,35 +291,35 @@ html, body {
   box-shadow: 0 0 15px rgba(228, 64, 95, 0.2);
 }
 
-.link--telegram:hover .link-inner {
+.link--telegram:hover {
   background: rgba(36, 161, 222, 0.15);
   border-color: #24A1DE;
   color: #24A1DE;
   box-shadow: 0 0 20px rgba(36, 161, 222, 0.2);
 }
 
-.link--discord:hover .link-inner {
+.link--discord:hover {
   background: rgba(88, 101, 242, 0.15);
   border-color: #5865F2;
   color: #5865F2;
   box-shadow: 0 0 20px rgba(88, 101, 242, 0.2);
 }
 
-.link--riot:hover .link-inner {
+.link--riot:hover {
   background: rgba(211, 41, 54, 0.15);
   border-color: #D32936;
   color: #D32936;
   box-shadow: 0 0 20px rgba(211, 41, 54, 0.2);
 }
 
-.link--github:hover .link-inner {
+.link--github:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: var(--white);
   color: var(--white);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-.link--steam:hover .link-inner {
+.link--steam:hover {
   background: rgba(102, 192, 244, 0.15);
   border-color: #66C0F4;
   color: #66C0F4;
@@ -361,19 +361,24 @@ html, body {
 
 .modern-link {
   position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--white-05);
+  border: 1px solid var(--white-10);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+  padding-right: 12px;
 }
 
 .link-inner {
   display: flex;
   align-items: center;
   padding: 16px 24px;
-  background: var(--white-05);
-  border: 1px solid var(--white-10);
-  border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--white);
   transition: var(--transition);
   gap: 16px;
+  flex: 1;
 }
 
 .modern-link-icon {
@@ -384,9 +389,13 @@ html, body {
   transition: transform 0.3s ease;
 }
 
-.modern-link:hover .link-inner {
+.modern-link:hover {
   background: var(--white-10);
   border-color: var(--white-20);
+}
+
+.modern-link:hover .link-inner,
+.modern-link:hover .link-value {
   transform: translateX(8px);
 }
 
@@ -395,7 +404,39 @@ html, body {
 }
 
 .link-label { font-weight: 600; flex: 1; }
-.link-value { font-family: var(--font-mono); font-size: 13px; color: var(--gray-2); }
+.link-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gray-2);
+  padding: 4px 8px;
+  background: var(--white-05);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.link-value:hover {
+  color: var(--white);
+  background: var(--white-10);
+  border-color: var(--white-20);
+}
+
+.channel-tag {
+  font-size: 12px;
+  color: var(--gray-2);
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.channel-tag:hover {
+  color: var(--white);
+  background: var(--white-10);
+}
 
 /* ── Contact Card ── */
 .contact-card {
