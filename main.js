@@ -1,182 +1,168 @@
-/* ===================================================
-   SOWER — Minimalist Theme main.js
-   Subtle star field, parallax & Copy functionality
-   =================================================== */
+/**
+ * SOWER — Futuristic Protocol main.js
+ */
 
-// ── Minimalist Star field ───────────────────────────
-(function createStars() {
-  const container = document.getElementById('bgStars');
-  if (!container) return;
-  const count = 150;
-  const frag = document.createDocumentFragment();
+document.addEventListener('DOMContentLoaded', () => {
+    initStarfield();
+    initCursor();
+    initTextScramble();
+    initCopySystem();
+    initBentoHover();
+});
 
-  // Monochromatic star colors (white, gray, silver)
-  const starColors = [
-    '#ffffff',
-    '#e8e8e8',
-    '#d0d0d0',
-    '#b8b8b8',
-    '#a0a0a0'
-  ];
+// ── Starfield ───────────────────────────
+function initStarfield() {
+    const container = document.getElementById('bgStars');
+    if (!container) return;
+    const count = 100;
+    const frag = document.createDocumentFragment();
 
-  for (let i = 0; i < count; i++) {
-    const s = document.createElement('span');
-    s.className = 'star';
-    const size = Math.random() * 2 + 0.5;
-    const dur  = (Math.random() * 4 + 2).toFixed(1);
-    const op   = (Math.random() * 0.4 + 0.15).toFixed(2);
-    const color = starColors[Math.floor(Math.random() * starColors.length)];
-    
-    s.style.cssText = `
-      width:${size}px; height:${size}px;
-      top:${Math.random() * 100}%;
-      left:${Math.random() * 100}%;
-      --dur:${dur}s; --op:${op};
-      animation-delay:${(Math.random() * 4).toFixed(1)}s;
-      background:${color};
-      box-shadow: 0 0 ${size}px ${color};
-    `;
-    frag.appendChild(s);
-  }
-  container.appendChild(frag);
-})();
+    for (let i = 0; i < count; i++) {
+        const s = document.createElement('span');
+        s.className = 'star';
+        const size = Math.random() * 1.5 + 0.5;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
 
-// ── Channel Accent Colors ─────────────────────────────
-(function initChannelAccentColors() {
-  const channelBlocks = document.querySelectorAll('.channel-block');
-  channelBlocks.forEach(block => {
-    const accentColor = block.getAttribute('data-accent-color');
-    if (accentColor) {
-      block.style.setProperty('--channel-accent', accentColor);
+        s.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: #fff;
+            left: ${x}%;
+            top: ${y}%;
+            border-radius: 50%;
+            opacity: ${Math.random() * 0.5 + 0.2};
+            box-shadow: 0 0 ${size * 2}px #fff;
+            animation: twinkle ${duration}s infinite ease-in-out ${delay}s;
+        `;
+        frag.appendChild(s);
     }
-  });
-})();
+    container.appendChild(frag);
+}
 
-// ── Parallax Effect on Mouse Move (CSS variables, no inline transform) ──
-(function initParallax() {
-  const channels = document.querySelectorAll('.channel-block');
-  if (channels.length === 0) return;
+// ── Custom Cursor ───────────────────────
+function initCursor() {
+    const cursorEl = document.querySelector('.cursor-follower');
+    if (!cursorEl) return;
 
-  document.addEventListener('mousemove', (e) => {
-    const x = ((e.clientX / window.innerWidth - 0.5) * 20 * 0.05).toFixed(2);
-    const y = ((e.clientY / window.innerHeight - 0.5) * 20 * 0.05).toFixed(2);
-    
-    channels.forEach(block => {
-      block.style.setProperty('--prlx-x', x);
-      block.style.setProperty('--prlx-y', y);
+    const cursor = {
+        x: 0, y: 0,
+        targetX: 0, targetY: 0,
+        scale: 1, targetScale: 1
+    };
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.targetX = e.clientX;
+        cursor.targetY = e.clientY;
     });
-  });
 
-  // Reset on mouse leave
-  document.addEventListener('mouseleave', () => {
-    channels.forEach(block => {
-      block.style.setProperty('--prlx-x', '0');
-      block.style.setProperty('--prlx-y', '0');
+    function animate() {
+        cursor.x += (cursor.targetX - cursor.x) * 0.15;
+        cursor.y += (cursor.targetY - cursor.y) * 0.15;
+        cursor.scale += (cursor.targetScale - cursor.scale) * 0.15;
+
+        cursorEl.style.transform = `translate3d(${cursor.x - 10}px, ${cursor.y - 10}px, 0) scale(${cursor.scale})`;
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Hover effects
+    const interactive = document.querySelectorAll('a, button, .modern-link, .bento-item');
+    interactive.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.targetScale = 2;
+            cursorEl.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.targetScale = 1;
+            cursorEl.style.backgroundColor = 'transparent';
+        });
     });
-  });
-})();
+}
 
-// ── Copy to Clipboard ───────────────────────────────
-(function initCopyLinks() {
-  const toast = document.getElementById('copyToast');
-  let toastTimeout;
+// ── Text Scramble ───────────────────────
+function initTextScramble() {
+    const el = document.querySelector('.profile__name');
+    if (!el) return;
 
-  function copyText(text) {
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-      if (toast) {
+    const chars = '!<>-_\\/[]{}—=+*^?#________';
+    const text = el.getAttribute('data-value') || el.innerText;
+    let frame = 0;
+    let timeout;
+
+    function scramble() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0; i < text.length; i++) {
+            if (i < frame / 3) {
+                output += text[i];
+                complete++;
+            } else {
+                output += chars[Math.floor(Math.random() * chars.length)];
+            }
+        }
+        el.innerText = output;
+        if (complete < text.length) {
+            frame++;
+            timeout = setTimeout(scramble, 30);
+        }
+    }
+
+    el.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        frame = 0;
+        scramble();
+    });
+
+    // Initial trigger
+    scramble();
+}
+
+// ── Copy System ─────────────────────────
+function initCopySystem() {
+    const toast = document.getElementById('copyToast');
+    const links = document.querySelectorAll('[data-copy]');
+
+    links.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const text = link.getAttribute('data-copy');
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast();
+                });
+            }
+        });
+    });
+
+    function showToast() {
         toast.classList.add('show');
-        clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => {
-          toast.classList.remove('show');
-        }, 2000);
-      }
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
-  }
-
-  // New split-button: copy btn on Riot Games card
-  const copyBtns = document.querySelectorAll('.link__copy-btn');
-  copyBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const linkContainer = btn.closest('.link--split');
-      if (linkContainer) {
-        const textToCopy = linkContainer.getAttribute('data-copy');
-        copyText(textToCopy);
-      }
-    });
-  });
-
-  // Legacy: copy badge (other cards if any)
-  const copyBadges = document.querySelectorAll('.link__copy-badge');
-  copyBadges.forEach(badge => {
-    badge.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const linkContainer = badge.closest('.link');
-      if (linkContainer) {
-        const textToCopy = linkContainer.getAttribute('data-copy');
-        copyText(textToCopy);
-      }
-    });
-  });
-
-  // Legacy: whole-card copy (Discord etc.)
-  const copyLinks = document.querySelectorAll('.link--copy');
-  copyLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const textToCopy = link.getAttribute('data-copy');
-      copyText(textToCopy);
-    });
-  });
-})();
-
-// ── Ripple Effect on Click ──────────────────────────
-(function initRippleEffect() {
-  const links = document.querySelectorAll('.link, .channel-block');
-  
-  links.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-      
-      const ripple = document.createElement('span');
-      ripple.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        transform: translate(${x}px, ${y}px) scale(0);
-        pointer-events: none;
-        animation: ripple 0.6s ease-out;
-      `;
-      
-      this.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    });
-  });
-})();
-
-// ── Add Ripple Animation to CSS ─────────────────────
-const style = document.createElement('style');
-style.innerHTML = `
-  @keyframes ripple {
-    0% {
-      transform: translate(var(--x, 0), var(--y, 0)) scale(0);
-      opacity: 1;
+        setTimeout(() => toast.classList.remove('show'), 2000);
     }
-    100% {
-      transform: translate(var(--x, 0), var(--y, 0)) scale(1);
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(style);
+}
 
+// ── Bento Hover Parallax ────────────────
+function initBentoHover() {
+    const items = document.querySelectorAll('.bento-item');
+    items.forEach(item => {
+        item.addEventListener('mousemove', (e) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = '';
+        });
+    });
+}
