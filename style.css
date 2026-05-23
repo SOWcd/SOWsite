@@ -246,23 +246,84 @@ html, body {
 
 .mini-link {
   flex: 1;
-  text-align: center;
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
   background: var(--white-05);
   border: 1px solid var(--white-10);
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
   transition: var(--transition);
   text-decoration: none;
   color: var(--white);
 }
 
-.mini-link:hover {
-  background: var(--white);
-  color: #000;
+.mini-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.mini-link:hover svg {
+  transform: scale(1.1);
+}
+
+/* Brand Hover Transitions */
+.link--youtube:hover {
+  background: rgba(255, 0, 0, 0.15);
+  border-color: #FF0000;
+  color: #FF0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+.link--tiktok:hover {
+  background: rgba(254, 44, 85, 0.15);
+  border-color: #FE2C55;
+  color: #FE2C55;
+  box-shadow: 0 0 15px rgba(254, 44, 85, 0.2);
+}
+
+.link--instagram:hover {
+  background: rgba(228, 64, 95, 0.15);
+  border-color: #E4405F;
+  color: #E4405F;
+  box-shadow: 0 0 15px rgba(228, 64, 95, 0.2);
+}
+
+.link--telegram:hover .link-inner {
+  background: rgba(36, 161, 222, 0.15);
+  border-color: #24A1DE;
+  color: #24A1DE;
+  box-shadow: 0 0 20px rgba(36, 161, 222, 0.2);
+}
+
+.link--discord:hover .link-inner {
+  background: rgba(88, 101, 242, 0.15);
+  border-color: #5865F2;
+  color: #5865F2;
+  box-shadow: 0 0 20px rgba(88, 101, 242, 0.2);
+}
+
+.link--riot:hover .link-inner {
+  background: rgba(211, 41, 54, 0.15);
+  border-color: #D32936;
+  color: #D32936;
+  box-shadow: 0 0 20px rgba(211, 41, 54, 0.2);
+}
+
+.link--github:hover .link-inner {
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--white);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.link--steam:hover .link-inner {
+  background: rgba(102, 192, 244, 0.15);
+  border-color: #66C0F4;
+  color: #66C0F4;
+  box-shadow: 0 0 20px rgba(102, 192, 244, 0.2);
 }
 
 /* ── Links List Card ── */
@@ -304,15 +365,23 @@ html, body {
 
 .link-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: 16px 24px;
   background: var(--white-05);
   border: 1px solid var(--white-10);
   border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--white);
   transition: var(--transition);
+  gap: 16px;
+}
+
+.modern-link-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
 .modern-link:hover .link-inner {
@@ -321,7 +390,11 @@ html, body {
   transform: translateX(8px);
 }
 
-.link-label { font-weight: 600; }
+.modern-link:hover .modern-link-icon {
+  transform: scale(1.1);
+}
+
+.link-label { font-weight: 600; flex: 1; }
 .link-value { font-family: var(--font-mono); font-size: 13px; color: var(--gray-2); }
 
 /* ── Contact Card ── */
