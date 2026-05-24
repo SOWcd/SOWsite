@@ -143,10 +143,13 @@ function initCopySystem() {
     }
 }
 
-// ── Bento Hover Parallax ────────────────
+// ── Bento Hover Parallax & Accent Glow ────────────────
 function initBentoHover() {
     const items = document.querySelectorAll('.bento-item');
     items.forEach(item => {
+        const accent = item.getAttribute('data-accent-color') || '#ffffff';
+        item.style.setProperty('--accent', accent);
+
         item.addEventListener('mousemove', (e) => {
             const rect = item.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -158,6 +161,8 @@ function initBentoHover() {
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
 
+            item.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+            item.style.setProperty('--y', `${(y / rect.height) * 100}%`);
             item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
         });
 
