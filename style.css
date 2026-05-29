@@ -8,6 +8,7 @@
   --bg: #000000;
   --white: #ffffff;
   --white-10: rgba(255, 255, 255, 0.1);
+  --white-07: rgba(255, 255, 255, 0.07);
   --white-05: rgba(255, 255, 255, 0.05);
   --white-20: rgba(255, 255, 255, 0.2);
   --gray-1: #e0e0e0;
@@ -170,7 +171,7 @@ html, body {
 }
 
 .bento-item:hover .card-glow {
-  opacity: 0.15;
+  opacity: 0.07;
 }
 
 .hud-label {
@@ -251,38 +252,59 @@ html, body {
 
 /* Brand Hover Transitions */
 .link--telegram:hover .link-inner {
-  background: rgba(36, 161, 222, 0.15);
+  background: rgba(36, 161, 222, 0.1);
   border-color: #24A1DE;
   color: #24A1DE;
-  box-shadow: 0 0 20px rgba(36, 161, 222, 0.2);
+  box-shadow: 0 0 20px rgba(36, 161, 222, 0.1);
 }
 
 .link--discord:hover .link-inner {
-  background: rgba(88, 101, 242, 0.15);
+  background: rgba(88, 101, 242, 0.1);
   border-color: #5865F2;
   color: #5865F2;
-  box-shadow: 0 0 20px rgba(88, 101, 242, 0.2);
+  box-shadow: 0 0 20px rgba(88, 101, 242, 0.1);
 }
 
 .link--riot:hover .link-inner {
-  background: rgba(211, 41, 54, 0.15);
+  background: rgba(211, 41, 54, 0.1);
   border-color: #D32936;
   color: #D32936;
-  box-shadow: 0 0 20px rgba(211, 41, 54, 0.2);
+  box-shadow: 0 0 20px rgba(211, 41, 54, 0.1);
 }
 
 .link--github:hover .link-inner {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--white);
+  background: var(--white-07);
+  border-color: var(--white-20);
   color: var(--white);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .link--steam:hover .link-inner {
-  background: rgba(102, 192, 244, 0.15);
+  background: rgba(102, 192, 244, 0.1);
   border-color: #66C0F4;
   color: #66C0F4;
-  box-shadow: 0 0 20px rgba(102, 192, 244, 0.2);
+  box-shadow: 0 0 20px rgba(102, 192, 244, 0.1);
+}
+
+.link--youtube:hover .link-inner {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: #FF0000;
+  color: #FF0000;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+}
+
+.link--tiktok:hover .link-inner {
+  background: rgba(0, 242, 234, 0.07);
+  border-color: #00f2ea;
+  color: #00f2ea;
+  box-shadow: 0 0 20px rgba(0, 242, 234, 0.1);
+}
+
+.link--instagram:hover .link-inner {
+  background: rgba(225, 48, 108, 0.1);
+  border-color: #E1306C;
+  color: #E1306C;
+  box-shadow: 0 0 20px rgba(225, 48, 108, 0.1);
 }
 
 /* ── Links List Card ── */
@@ -343,7 +365,7 @@ html, body {
 }
 
 .modern-link:hover .link-inner {
-  background: var(--white-10);
+  background: var(--white-07);
   border-color: var(--white-20);
   transform: translateX(8px);
 }
